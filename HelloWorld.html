@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href = "css.css">
+	<title>
+		CreditAnalysisMachine.com
+	</title>
+</head>
+<body>
+<div>
+	<p style="text-align: center">
+		<a href= "HelloWorld.html" id= "h1TAG" class ="header"> Credit Analysis Machine </a>
+	</p>
+	
+</div>
+
+<div class="topnav" id="myHeader">
+<a href="HelloWorld.html"> Home </a>
+  <a href="Credit Analysis Machine.html">Credit Analysis Machine</a>
+  <a href="about.html">Why Blockchain?</a>
+   
+ 
+</div>
+<p id="bool"></p>
+<script>
+		window.onscroll = function() {myFunction()};
+		
+		var header = document.getElementById("myHeader");
+		var sticky = header.offsetTop;
+		
+		function myFunction() {
+		  if (window.pageYOffset > sticky) {
+			header.classList.add("sticky");
+		  } else {
+			header.classList.remove("sticky");
+		  }
+		}
+		function checkBool () {
+			if (document.getElementById("bool").innerHTML == "true") {
+				return true
+			}
+			else return false
+		}
+		
+		if (!checkBool())
+		{
+			location.replace('google.com');
+		}
+		
+</script>
+	<p class= "body" style="text-align: center"> <br>This machine uses machine learning to determine who is a good candidate for a loan. Our algorithm had trained using hundreds of past examples of failed and successful loans to ensure the best result possible. After training, our network has reached an average accuracy of 90.2%.
+	<br>
+
+<br>
+<img src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/introduction-to-machine-learning_social.png?1510178550" class="center">
+<br>
+
+
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+</body>
+</html>

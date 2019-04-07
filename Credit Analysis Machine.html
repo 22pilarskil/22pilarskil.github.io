@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href = "css.css">
+<title> Credit Analysis Machine</title>
+
+<script>
+
+function notVisible(){
+document.getElementById("pic").style.visibility = "hidden";
+}
+
+function featureScale (value, list){
+if (list[0]==0&&list[1]==1){
+return value
+}
+value-=list[0]
+var l = Math.abs(list[0])+Math.abs(list[1])
+value/=l
+return value
+}
+function convertCategorical (character, list){
+toInt = list.length-1;
+fractions = []
+for (i = 0; i<toInt+1; i++){
+fractions.push(i/toInt)
+}
+return (fractions[list.indexOf(character)])
+}
+
+function sigmoid(x) {
+return 1/(1+Math.pow(Math.E, -x));
+}
+
+function round(num) {
+  return -Math.round(-num);
+}
+
+function tValidate()
+{
+var fs = document.forms["fform"]["first"].value;
+var ls = document.forms["fform"]["last"].value;
+var cnum = document.forms["fform"]["cnum"].value;
+var tnum = document.forms["fform"]["tnum"].value;
+var mname= document.forms["fform"]["mname"].value;
+var hdress = document.forms["fform"]["hdress"].value;
+var exdate = document.forms["fform"]["exdate"].value;
+var a = document.forms["fform"]["a"].value;
+var b = document.forms["fform"]["b"].value;
+var c = document.forms["fform"]["c"].value;
+var d = document.forms["fform"]["d"].value;
+var e = document.forms["fform"]["e"].value;
+var f = document.forms["fform"]["f"].value;
+var g = document.forms["fform"]["g"].value;
+var h = document.forms["fform"]["h"].value;
+var output;
+var z;
+
+if( fs == "" || ls == "" || tnum == "" || cnum == "" || mname == "" || hdress == "" || exdate == "")
+{
+alert("Fill out everything");
+return false;
+}
+else {
+fs = convertCategorical(fs, ["a", "b"]) * 43.09149982;
+ls = featureScale(ls, [13.75, 76.75]) * -21.31053863;
+cnum = featureScale(cnum, [0, 28]) * 41.70238037;
+exdate = convertCategorical(exdate, ["u", "y", "l", "t"]) * -28.3520253;
+hdress = convertCategorical(hdress, ["g", "p", "gg"]) * -45.50016628;
+mname = convertCategorical(mname, ["c", "d", "cc", "i", "j", "k", "m", "r", "q", "w", "x", "e", "aa", "ff"]) * 3.26856871;
+tnum = convertCategorical(tnum, ["v", "h", "bb", "j", "n", "z", "dd", "ff","o"]) * -118.54495835;
+a = featureScale(a, [0, 2]) * 142.92927278;
+b = convertCategorical(b, ["t", "f"]) * -273.55323902;
+c = convertCategorical(c, ["t", "f"]) * -109.64269925;
+d = featureScale(d, [0, 2]) * 99.05009541;
+e = convertCategorical(e, ["t", "f"]) * 15.81363846;
+f = convertCategorical(f, ["g", "p", "s"]) * -25.16761524;
+g = featureScale(g, [0, 500]) * -42.83821148;
+h = featureScale(h, [0, 1000]) * 158.80783105;
+z = fs+ls+cnum+exdate+hdress+mname+tnum+a+b+c+d+e+f+g+h+121.62535941
+output = round(sigmoid(z));
+
+}
+if (output == 1) {
+        document.getElementById("xxx").innerHTML = "loan"
+}
+else{
+        document.getElementById("xxx").innerHTML = "no loan"
+}
+//console.log(z)
+//document.getElementById("xxx").innerHTML = output
+}
+
+function myFunction() 
+{
+  alert("Hello\nHow are you?");
+}
+</script>
+</head>
+<body onload="notVisible()">
+<p style="text-align: center">
+<a href= "HelloWorld.html" id= "h1TAG" class ="header"> Credit Analysis Machine </a>
+</p>
+
+<div class="topnav", id="myHeader">
+
+<a href="HelloWorld.html"> Home </a>
+  <a href="Credit Analysis Machine.html">Credit Analysis Machine</a>
+  <a id = "reason" href="about.html" >Why Blockchain?</a>
+  <b href="index.html">Sign In with BlockStack</b>
+</div>
+<script>
+	window.onscroll = function() {myFunction()};
+		
+	var header = document.getElementById("myHeader");
+	var sticky = header.offsetTop;
+	
+	function myFunction() {
+	  if (window.pageYOffset > sticky) {
+		header.classList.add("sticky");
+	  } else {
+		header.classList.remove("sticky");
+	  }
+	}
+</script>
+<div class= "form">
+<p> Use your own dataset to train a new neural network, or use our pre-existing network >>> Input data into our trained neural network in order to determine whether or not a person should receive a credit loan.
+<form id="fform" action="" method="post">
+Input a or b: <input type="text"  id="first">
+Input an age between 14-76: <input type="text" id="last"/>
+Number 1-30: <input type="text" id="cnum"/>
+Choose one(     u, y, l, t): <input type= "text" id="exdate" />
+Choose one(     g, p, gg): <input type= "text" id="hdress" />
+Choose one(c, d, cc, i, j, k, m, r, q, w, x, e, aa, ff): <input type= "text" id="mname" />
+Choose one(v, h, bb, j, n, z, dd, ff, o): <input type= "text" id="tnum" />
+Decimal from 0 to 28.5: <input type= "text" id="a" />
+Choose one(t or f): <input type= "text" id="b" />
+Choose one(t or f): <input type= "text" id="c" />
+Integer from 0 to 67: <input type= "text" id="d" />
+Choose one(t or f): <input type= "text" id="e" />
+Choose one(g, p, s): <input type= "text" id="f" />
+Integer from 0 to 2000: <input type= "text" id="g" />
+Integer from 0 to 10000: <input type= "text" id="h" />
+
+
+<input type="button" value = "submit" onclick="tValidate(); return false"></input>
+
+
+</div>
+</form>
+<p id = "xxx"> </p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href = "css.css">
+	
+	<title> Registration</title>
+
+	<script>
+
+		function notVisible(){
+		document.getElementById("pic").style.visibility = "hidden";
+		}
+
+		function tValidate()
+		{
+				
+			var fs = document.forms["fform"]["first"].value;
+			var ls = document.forms["fform"]["last"].value;
+			var cnum = document.forms["fform"]["cnum"].value;
+			var tnum = document.forms["fform"]["tnum"].value;
+			var mname= document.forms["fform"]["mname"].value;
+			var hdress = document.forms["fform"]["hdress"].value;
+			var exdate = document.forms["fform"]["exdate"].value;
+			var a = document.forms["fform"]["a"].value;
+			var b = document.forms["fform"]["b"].value;
+			var c = document.forms["fform"]["c"].value;
+			var d = document.forms["fform"]["d"].value;
+			var e = document.forms["fform"]["e"].value;
+			var f = document.forms["fform"]["f"].value;
+			var g = document.forms["fform"]["g"].value;
+			var h = document.forms["fform"]["h"].value;
+
+			if( fs == "" || ls == "" || tnum == "" || cnum == "" || mname == " " || hdress == "" || exdate == "")
+			{
+				alert("Fill out everything");
+				return false;
+			}
+			else {
+				var fs = 
+			}
+				
+			
+		}
+
+	
+		function myFunction() 
+		{
+  			alert("Hello\nHow are you?");
+		}
+			}
+	
+	</script>
+</head>
+<body onload="notVisible()">
+		<p style="text-align: center">
+		<a href= "HelloWorld.html" id= "h1TAG" class ="header"> Credit Analysis Machine </a>
+	</p>
+
+	<div class="topnav">
+
+<a href="HelloWorld.html"> Home </a>
+  <a href="registrartion.html">Credit Analysis Machine</a>
+  <a id = "reason" href="about.html" >he Reason Why</a>
+  <b href="index.html">Sign In with BlockStack</b>
+</div>
+<div class= "form">
+<p> Use your own dataset to train a new neural network, or use our prexisting network
+<form id="fform" action="" method="post">	
+	Gender(a for male)(b for female): <input type="text"  id="first">
+	Age: <input type="text" id="last"/>
+	Number 1-30: <input type="text" id="cnum"/>
+	Choose one(	u, y, l, t): <input type= "text" id="exdate" />
+	Choose one(	g, p, gg): <input type= "text" id="hdress" />
+	Choose one(c, d, cc, i, j, k, m, r, q, w, x, e, aa, ff): <input type= "text" id="mname" />
+	Choose one(v, h, bb, j, n, z, dd, ff, o): <input type= "text" id="tnum" />
+	Decimal from 0 to 28.5: <input type= "text" id="a" />
+	Choose one(t or f): <input type= "text" id="b" />
+	Choose one(t or f): <input type= "text" id="c" />
+	Integer from 0 to 67: <input type= "text" id="d" />
+	Choose one(t or f): <input type= "text" id="e" />
+	Choose one(g, p, s): <input type= "text" id="f" />
+	Integer from 0 to 2000: <input type= "text" id="g" />
+	Integer from 0 to 10000: <input type= "text" id="h" />
+
+
+
+
+
+
+		<p id="message"> </p>
+		<input type="submit" value = "submit" onclick="tValidate()"></input>
+ <img id="pic" src=""> </img>
+		
+
+	</div>
+</form>
+</body>
+</html>-->
+
+
+
